@@ -99,7 +99,9 @@ if(UCFS_DEV_NOR_SUPPORT)
         ${UCFS_DIR}/Dev/NOR/fs_dev_nor.c
         ${UCFS_DIR}/Dev/NOR/fs_dev_nor.h
         ${UCFS_DIR}/Dev/NOR/PHY/fs_dev_nor_mmap.c
-        ${UCFS_DIR}/Dev/NOR/PHY/fs_dev_nor_mmap.h)
+        ${UCFS_DIR}/Dev/NOR/PHY/fs_dev_nor_mmap.h
+        ${UCFS_DIR}/Dev/NOR/BSP/bsp_fs_dev_nor_file.c
+        )
     target_compile_definitions(uC-FS PUBLIC -DUCFS_HAVE_NOR_SUPPORT=1)
 endif()
 
@@ -109,9 +111,19 @@ if(UCFS_DEV_NAND_SUPPORT)
         ${UCFS_DIR}/Dev/NAND/fs_dev_nand.h
         
 
-        ${UCFS_DIR}/Dev/NAND/Ctrlr/fs_dev_nand_ctrlr_gen.c
-        ${UCFS_DIR}/Dev/NAND/Ctrlr/fs_dev_nand_ctrlr_gen.h)
+        #${UCFS_DIR}/Dev/NAND/Ctrlr/fs_dev_nand_ctrlr_gen.c
+        #${UCFS_DIR}/Dev/NAND/Ctrlr/fs_dev_nand_ctrlr_gen.h
+
+        ${UCFS_DIR}/Dev/NAND/Ctrlr/fs_dev_nand_ctrlr_file.c
+        ${UCFS_DIR}/Dev/NAND/Ctrlr/fs_dev_nand_ctrlr_file.h
+
+        ${UCFS_DIR}/Dev/NAND/Ctrlr/FileExt/fs_dev_nand_ctrlr_file_soft_ecc.c
+
+        ${UCFS_DIR}/Dev/NAND/BSP/bsp_fs_dev_nand_ctrlr_file.c
+
+        ${UCFS_DIR}/Dev/NAND/Part/fs_dev_nand_part_static.c)
     target_compile_definitions(uC-FS PUBLIC -DUCFS_HAVE_NAND_SUPPORT=1)
+    target_link_libraries(uC-FS PUBLIC uC-CRC)
 endif()
 
 target_include_directories(uC-FS PUBLIC ${UCFS_CFG_DIR})

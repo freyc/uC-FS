@@ -13,6 +13,9 @@
 #include  <fs_dev.h>
 #include  <NOR/fs_dev_nor.h>
 
+typedef struct fs_dev_nor_file_cfg {
+    const char *FileName;
+} FS_DEV_NOR_FILE_CFG;
 
 extern  const  FS_DEV_NOR_PHY_API  FSDev_NOR_MMAP;
 
