@@ -78,6 +78,11 @@ add_library(uC-FS STATIC
     ${UCFS_DIR}/FAT/fs_fat_sfn.c
     ${UCFS_DIR}/FAT/fs_fat_sfn.h
     ${UCFS_DIR}/FAT/fs_fat_type.h
+
+    # exFAT sources
+    ${UCFS_DIR}/exFAT/fs_exfat.c
+    ${UCFS_DIR}/exFAT/fs_exfat_file.c
+    ${UCFS_DIR}/exFAT/fs_exfat_entry.c
 )
 
 if(UCFS_DEV_FILEDISK_SUPPORT)

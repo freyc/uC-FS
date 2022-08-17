@@ -166,6 +166,8 @@
 #ifdef   FS_CFG_SYS_DRV_SEL
 #if     (FS_CFG_SYS_DRV_SEL == FS_SYS_DRV_SEL_FAT)
 #define  FS_FAT_MODULE_PRESENT
+#elif   (FS_CFG_SYS_DRV_SEL == FS_SYS_DRV_SEL_EXFAT)
+#define  FS_EXFAT_MODULE_PRESENT
 #endif
 #endif
 
@@ -284,9 +286,11 @@
 #error  "FS_CFG_SYS_DRV_SEL                           not #define'd in 'fs_cfg.h'               "
 #error  "                                       [MUST be  FS_SYS_DRV_SEL_FAT]                   "
 
-#elif   (FS_CFG_SYS_DRV_SEL != FS_SYS_DRV_SEL_FAT)
+#elif  ((FS_CFG_SYS_DRV_SEL != FS_SYS_DRV_SEL_FAT) && \
+        (FS_CFG_SYS_DRV_SEL != FS_SYS_DRV_SEL_EXFAT))
 #error  "FS_CFG_SYS_DRV_SEL                     illegally #define'd in 'fs_cfg.h'               "
-#error  "                                       [MUST be  FS_SYS_DRV_SEL_FAT]                   "
+#error  "                                       [MUST be  FS_SYS_DRV_SEL_FAT  ]                 "
+#error  "                                       [     ||  FS_SYS_DRV_SEL_EXFAT]                 "
 #endif
 
 

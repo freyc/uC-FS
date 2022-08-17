@@ -50,6 +50,7 @@
 #include  "fs_sys.h"
 #include  "fs_vol.h"
 #include  "../FAT/fs_fat.h"
+#include  "../exFAT/fs_exfat.h"
 
 
 /*

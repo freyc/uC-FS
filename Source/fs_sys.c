@@ -60,6 +60,12 @@
 #include  "../FAT/fs_fat_entry.h"
 #include  "../FAT/fs_fat_file.h"
 
+#if defined(FS_EXFAT_MODULE_PRESENT)
+#include "../exFAT/fs_exfat.h"
+#include "../exFAT/fs_exfat_entry.h"
+#include "../exFAT/fs_exfat_file.h"
+#endif
+
 
 /*
 *********************************************************************************************************
@@ -140,6 +146,8 @@ void  FSSys_ModuleInit (FS_QTY   vol_cnt,
 {
 #ifdef FS_FAT_MODULE_PRESENT
     FS_FAT_ModuleInit(vol_cnt, file_cnt, dir_cnt, p_err);
+#elif defined(FS_EXFAT_MODULE_PRESENT)
+    FS_exFAT_ModuleInit(vol_cnt, file_cnt, dir_cnt, p_err);
 #else
 #error  "NO SYS DRIVER PRESENT"                                 /* See 'fs_sys.c  Notes #1'.                            */
 #endif
@@ -172,6 +180,8 @@ void  FSSys_VolClose (FS_VOL  *p_vol)
 {
 #ifdef FS_FAT_MODULE_PRESENT
     FS_FAT_VolClose(p_vol);
+#elif defined(FS_EXFAT_MODULE_PRESENT)
+    FS_exFAT_VolClose(p_vol);
 #else
 #error  "NO SYS DRIVER PRESENT"                                 /* See 'fs_sys.c  Notes #1'.                            */
 #endif
@@ -215,6 +225,8 @@ void  FSSys_VolFmt (FS_VOL       *p_vol,
 {
 #ifdef FS_FAT_MODULE_PRESENT
     FS_FAT_VolFmt(p_vol, p_sys_cfg, sec_size, size, p_err);
+#elif defined(FS_EXFAT_MODULE_PRESENT)
+    FS_exFAT_VolFmt(p_vol, p_sys_cfg, sec_size, size, p_err);
 #else
 #error  "NO SYS DRIVER PRESENT"                                 /* See 'fs_sys.c  Notes #1'.                            */
 #endif
@@ -254,6 +266,8 @@ void  FSSys_VolLabelGet (FS_VOL      *p_vol,
 {
 #ifdef FS_FAT_MODULE_PRESENT
     FS_FAT_VolLabelGet(p_vol, label, len_max, p_err);
+#elif defined(FS_EXFAT_MODULE_PRESENT)
+    FS_exFAT_VolLabelGet(p_vol, label, len_max, p_err);
 #else
 #error  "NO SYS DRIVER PRESENT"                                 /* See 'fs_sys.c  Notes #1'.                            */
 #endif
@@ -293,6 +307,8 @@ void  FSSys_VolLabelSet (FS_VOL    *p_vol,
 {
 #ifdef FS_FAT_MODULE_PRESENT
     FS_FAT_VolLabelSet(p_vol, label, p_err);
+#elif defined(FS_EXFAT_MODULE_PRESENT)
+    FS_exFAT_VolLabelSet(p_vol, label, p_err);
 #else
 #error  "NO SYS DRIVER PRESENT"                                 /* See 'fs_sys.c  Notes #1'.                            */
 #endif
@@ -326,6 +342,8 @@ void  FSSys_VolOpen (FS_VOL  *p_vol,
 {
 #ifdef FS_FAT_MODULE_PRESENT
      FS_FAT_VolOpen(p_vol, p_err);
+#elif defined(FS_EXFAT_MODULE_PRESENT)
+    FS_exFAT_VolOpen(p_vol, p_err);
 #else
 #error  "NO SYS DRIVER PRESENT"                                 /* See 'fs_sys.c  Notes #1'.                            */
 #endif
@@ -361,6 +379,8 @@ void  FSSys_VolQuery (FS_VOL       *p_vol,
 {
 #ifdef FS_FAT_MODULE_PRESENT
     FS_FAT_VolQuery(p_vol, p_info, p_err);
+#elif defined(FS_EXFAT_MODULE_PRESENT)
+    FS_exFAT_VolQuery(p_vol, p_info, p_err);
 #else
 #error  "NO SYS DRIVER PRESENT"                                 /* See 'fs_sys.c  Notes #1'.                            */
 #endif
@@ -399,6 +419,8 @@ void  FSSys_FileClose  (FS_FILE  *p_file,
 {
 #ifdef FS_FAT_MODULE_PRESENT
     FS_FAT_FileClose(p_file, p_err);
+#elif defined(FS_EXFAT_MODULE_PRESENT)
+    FS_exFAT_FileClose(p_file, p_err);
 #else
 #error  "NO SYS DRIVER PRESENT"                                 /* See 'fs_sys.c  Notes #1'.                            */
 #endif
@@ -445,6 +467,8 @@ void  FSSys_FileOpen (FS_FILE   *p_file,
 {
 #ifdef FS_FAT_MODULE_PRESENT
     FS_FAT_FileOpen(p_file, name_file, p_err);
+#elif defined(FS_EXFAT_MODULE_PRESENT)
+    FS_exFAT_FileOpen(p_file, name_file, p_err);
 #else
 #error  "NO SYS DRIVER PRESENT"                                 /* See 'fs_sys.c  Notes #1'.                            */
 #endif
@@ -482,6 +506,8 @@ void  FSSys_FilePosSet (FS_FILE       *p_file,
 {
 #ifdef FS_FAT_MODULE_PRESENT
     FS_FAT_FilePosSet(p_file, pos_new, p_err);
+#elif defined(FS_EXFAT_MODULE_PRESENT)
+    FS_exFAT_FilePosSet(p_file, pos_new, p_err);
 #else
 #error  "NO SYS DRIVER PRESENT"                                 /* See 'fs_sys.c  Notes #1'.                            */
 #endif
@@ -518,6 +544,8 @@ void  FSSys_FileQuery (FS_FILE        *p_file,
 {
 #ifdef FS_FAT_MODULE_PRESENT
     FS_FAT_FileQuery(p_file, p_info, p_err);
+#elif defined(FS_EXFAT_MODULE_PRESENT)
+    FS_exFAT_FileQuery(p_file, p_info, p_err);
 #else
 #error  "NO SYS DRIVER PRESENT"                                 /* See 'fs_sys.c  Notes #1'.                            */
 #endif
@@ -562,6 +590,11 @@ CPU_SIZE_T  FSSys_FileRd (FS_FILE     *p_file,
 
     size_rd = FS_FAT_FileRd(p_file, p_dest, size, p_err);
     return (size_rd);
+#elif defined(FS_EXFAT_MODULE_PRESENT)
+    CPU_SIZE_T  size_rd;
+
+    size_rd = FS_exFAT_FileRd(p_file, p_dest, size, p_err);
+    return (size_rd);
 #else
 #error  "NO SYS DRIVER PRESENT"                                 /* See 'fs_sys.c  Notes #1'.                            */
 #endif
@@ -600,6 +633,8 @@ void  FSSys_FileTruncate (FS_FILE       *p_file,
 {
 #ifdef FS_FAT_MODULE_PRESENT
     FS_FAT_FileTruncate(p_file, size, p_err);
+#elif defined(FS_EXFAT_MODULE_PRESENT)
+    FS_exFAT_FileTruncate(p_file, size, p_err);
 #else
 #error  "NO SYS DRIVER PRESENT"                                 /* See 'fs_sys.c  Notes #1'.                            */
 #endif
@@ -645,6 +680,11 @@ CPU_SIZE_T  FSSys_FileWr (FS_FILE     *p_file,
     CPU_SIZE_T  size_wr;
 
     size_wr = FS_FAT_FileWr(p_file, p_src, size, p_err);
+    return (size_wr);
+#elif defined(FS_EXFAT_MODULE_PRESENT)
+    CPU_SIZE_T  size_wr;
+
+    size_wr = FS_exFAT_FileWr(p_file, p_src, size, p_err);
     return (size_wr);
 #else
 #error  "NO SYS DRIVER PRESENT"                                 /* See 'fs_sys.c  Notes #1'.                            */
@@ -805,6 +845,8 @@ void  FSSys_EntryAttribSet (FS_VOL    *p_vol,
 {
 #ifdef FS_FAT_MODULE_PRESENT
     FS_FAT_EntryAttribSet(p_vol, name_entry, attrib, p_err);
+#elif defined(FS_EXFAT_MODULE_PRESENT)
+    FS_exFAT_EntryAttribSet(p_vol, name_entry, attrib, p_err);
 #else
 #error  "NO SYS DRIVER PRESENT"                                 /* See 'fs_sys.c  Notes #1'.                            */
 #endif
@@ -864,6 +906,8 @@ void  FSSys_EntryCreate (FS_VOL       *p_vol,
 {
 #ifdef FS_FAT_MODULE_PRESENT
     FS_FAT_EntryCreate(p_vol, name_entry, entry_type, excl, p_err);
+#elif defined(FS_EXFAT_MODULE_PRESENT)
+    FS_exFAT_EntryCreate(p_vol, name_entry, entry_type, excl, p_err);
 #else
 #error  "NO SYS DRIVER PRESENT"                                 /* See 'fs_sys.c  Notes #1'.                            */
 #endif
@@ -914,6 +958,8 @@ void  FSSys_EntryDel (FS_VOL       *p_vol,
 {
 #ifdef FS_FAT_MODULE_PRESENT
     FS_FAT_EntryDel(p_vol, name_entry, entry_type, p_err);
+#elif defined(FS_EXFAT_MODULE_PRESENT)
+    FS_exFAT_EntryDel(p_vol, name_entry, entry_type, p_err);
 #else
 #error  "NO SYS DRIVER PRESENT"                                 /* See 'fs_sys.c  Notes #1'.                            */
 #endif
@@ -956,6 +1002,8 @@ void  FSSys_EntryQuery (FS_VOL         *p_vol,
 {
 #ifdef FS_FAT_MODULE_PRESENT
     FS_FAT_EntryQuery(p_vol, name_entry, p_info, p_err);
+#elif defined(FS_EXFAT_MODULE_PRESENT)
+    FS_exFAT_EntryQuery(p_vol, name_entry, p_info, p_err);
 #else
 #error  "NO SYS DRIVER PRESENT"                                 /* See 'fs_sys.c  Notes #1'.                            */
 #endif
@@ -1014,6 +1062,8 @@ void  FSSys_EntryRename (FS_VOL       *p_vol,
 {
 #ifdef FS_FAT_MODULE_PRESENT
     FS_FAT_EntryRename(p_vol, name_entry_old, name_entry_new, excl, p_err);
+#elif defined(FS_EXFAT_MODULE_PRESENT)
+    FS_exFAT_EntryRename(p_vol, name_entry_old, name_entry_new, excl, p_err);
 #else
 #error  "NO SYS DRIVER PRESENT"                                 /* See 'fs_sys.c  Notes #1'.                            */
 #endif
@@ -1066,6 +1116,8 @@ void  FSSys_EntryTimeSet (FS_VOL        *p_vol,
 {
 #ifdef FS_FAT_MODULE_PRESENT
     FS_FAT_EntryTimeSet(p_vol, name_entry, p_time, time_type, p_err);
+#elif defined(FS_EXFAT_MODULE_PRESENT)
+    FS_exFAT_EntryTimeSet(p_vol, name_entry, p_time, time_type, p_err);
 #else
 #error  "NO SYS DRIVER PRESENT"                                 /* See 'fs_sys.c  Notes #1'.                            */
 #endif
