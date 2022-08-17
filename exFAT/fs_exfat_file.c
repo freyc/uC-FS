@@ -1,6 +1,9 @@
 #include "fs_exfat_file.h"
 
 
+void          FS_exFAT_FileModuleInit(FS_QTY          file_cnt,   /* Init FAT dir module.                                 */
+                                      FS_ERR         *p_err) {}
+
 void          FS_exFAT_FileClose   (FS_FILE        *p_file,     /* Close a file.                                        */
                                     FS_ERR         *p_err) {}
 
