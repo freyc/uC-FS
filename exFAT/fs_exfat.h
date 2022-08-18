@@ -1,3 +1,5 @@
+#ifndef FS_EXFAT_H
+#define FS_EXFAT_H
 
 #include  "../Source/fs_cfg_fs.h"
 #include  "../Source/fs_ctr.h"
@@ -12,6 +14,28 @@
 
 #include "fs_exfat_file.h"
 
+typedef struct fs_exfat_data {
+    CPU_INT64U PartitionOffset;
+    CPU_INT64U VolumeLength;
+    CPU_INT32U SectorSize;
+    CPU_INT32U SectorsPerCluster;
+
+    CPU_INT32U FatOffset_sec;
+    CPU_INT32U FatLength_sec;
+    CPU_INT32U ClusterHeapOffset_sec;
+    CPU_INT32U ClusterCount;
+    CPU_INT32U FirstClusterOfRootDir;
+
+    CPU_INT08U BytesPerSectorShift;
+    CPU_INT08U SectorsPerClusterShift;
+    CPU_INT08U NbrOfFATs;
+
+    CPU_BOOLEAN QueryInfoValid;
+    CPU_INT32U QueryBadClusCnt;
+    CPU_INT32U QueryFreeClusCnt;
+
+
+} FS_EXFAT_DATA;
 
 void             FS_exFAT_ModuleInit           (FS_QTY             vol_cnt,     /* Initialize FAT system driver.        */
                                                 FS_QTY             file_cnt,
@@ -71,5 +95,7 @@ void             FS_FAT_LowEntryFind           (FS_VOL            *p_vol,       
 
 
 
+
+#endif
 
 #endif

@@ -420,6 +420,7 @@ static  void  FSDev_FileDisk_Rd (FS_DEV      *p_dev,
         *p_err = FS_ERR_DEV_IO;
         return;
     }
+    printf("-- reading %d sectors at %d\n", cnt, start);
     Mem_Copy(p_dest, dev_data->Data + start * dev_data->SecSize, cnt * dev_data->SecSize);
     *p_err = FS_ERR_NONE;
 }
