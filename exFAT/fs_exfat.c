@@ -1,5 +1,7 @@
 #include "fs_exfat.h"
 
+#ifdef   FS_EXFAT_MODULE_PRESENT
+
 #include "../Source/fs_buf.h"
 #include "../Source/fs_vol.h"
 #include "fs.h"
@@ -919,3 +921,5 @@ static  void  FS_exFAT_ChkBootSec (FS_EXFAT_DATA  *p_fat_data,
 #endif
    *p_err = FS_ERR_NONE;
 }
+
+#endif

@@ -1,4 +1,5 @@
 #include "fs_exfat.h"
+#include "fs_err.h"
 
 #if (FS_CFG_RD_ONLY_EN == DEF_DISABLED)
 void      FS_exFAT_EntryAttribSet(FS_VOL         *p_vol,          /* Set file or directory's attributes.                  */
